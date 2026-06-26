@@ -1,6 +1,11 @@
 // Aquí guardamos todos los gastos
 let gastos = [];
 
+// Limpia emojis antes de enviar a Sheets
+function limpiarEmoji(texto) {
+  return texto.replace(/[\u{1F300}-\u{1FAFF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '').trim();
+}
+
 // Esto se ejecuta cuando aprietas el botón "Agregar"
 document.getElementById('formulario').addEventListener('submit', function(e) {
   e.preventDefault(); // evita que la página se recargue
@@ -11,10 +16,12 @@ document.getElementById('formulario').addEventListener('submit', function(e) {
   const categoria = document.getElementById('categoria').value;
 
   // Creamos un objeto con ese gasto
-    const gasto = {
+  const gasto = {
     descripcion: descripcion,
-    monto: '$' + Number(monto).toLocaleString('es-CL'),
+    monto: Number(monto),
+    montoSheets: '$' + Number(monto).toLocaleString('es-CL'),
     categoria: categoria,
+    categoriaSheets: limpiarEmoji(categoria),
     fecha: new Date().toLocaleDateString('es-CL')
   };
 
@@ -50,6 +57,11 @@ function enviarASheets(gasto) {
 
   fetch(URL_SCRIPT, {
     method: 'POST',
-    body: JSON.stringify(gasto)
+    body: JSON.stringify({
+      fecha: gasto.fecha,
+      descripcion: gasto.descripcion,
+      categoria: gasto.categoriaSheets,
+      monto: gasto.montoSheets
+    })
   });
 }

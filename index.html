@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Gastos</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+  <h1>Mis Gastos</h1>
+
+  <form id="formulario">
+    <input type="text" id="descripcion" placeholder="¿En qué gastaste?" required>
+    <input type="number" id="monto" placeholder="Monto $" required>
+    <select id="categoria">
+      <option>Comida</option>
+      <option>Transporte</option>
+      <option>Entretenimiento</option>
+      <option>Salud</option>
+      <option>Otro</option>
+    </select>
+    <button type="submit">Agregar</button>
+  </form>
+
+  <ul id="lista"></ul>
+
+  <script src="app.js"></script>
+</body>
+</html>
